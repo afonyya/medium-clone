@@ -48,7 +48,12 @@
           TAG LIST
         </router-link>
       </div>
-      PAGINATION
+      <Pagination
+        :total="total"
+        :limit="limit"
+        :current-page="currentPage"
+        :url="url"
+      />
     </div>
   </div>
 </template>
@@ -56,13 +61,25 @@
 <script>
 import { mapState } from 'vuex'
 import { actionTypes } from '@/store/modules/feed'
+import Pagination from '@/components/Pagination.vue'
 
 export default {
   name: 'Feed',
+  components: {
+    Pagination
+  },
   props: {
     apiUrl: {
       type: String,
       required: true
+    }
+  },
+  data () {
+    return {
+      total: 500,
+      limit: 10,
+      currentPage: 5,
+      url: '/tags/dragons'
     }
   },
   computed: {
