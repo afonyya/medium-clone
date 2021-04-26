@@ -1,0 +1,79 @@
+<template lang="html">
+  <div>
+    <div v-if="isLoading">Loading...</div>
+
+    <div v-if="error">Something bad happened</div>
+
+    <div v-if="feed">
+      <div
+        v-for="(article, index) in feed.articles"
+        :key="index"
+        class="article-preview"
+      >
+        <div class="article-meta">
+          <router-link
+            :to="{
+              name: 'userProfile',
+              params: { slug: article.author.username }
+            }"
+          >
+            <img :src="article.author.image" />
+          </router-link>
+          <div class="info">
+            <router-link
+              :to="{
+                name: 'userProfile',
+                params: { slug: article.author.username }
+              }"
+              class="author"
+            >
+              {{ article.author.username }}
+            </router-link>
+            <span class="date">{{ article.createdAt }}</span>
+          </div>
+          <div class="pull-xs-right">
+            ADD TO FAVORITES
+          </div>
+        </div>
+        <router-link
+          :to="{
+            name: 'article',
+            params: { slug: article.slug }
+          }"
+          class="preview-link"
+        >
+          <h3>{{ article.title }}</h3>
+          <p>{{ article.description }}</p>
+          <span>Reed more...</span>
+          TAG LIST
+        </router-link>
+      </div>
+      PAGINATION
+    </div>
+  </div>
+</template>
+
+<script>
+import { mapState } from 'vuex'
+import { actionTypes } from '@/store/modules/feed'
+
+export default {
+  name: 'Feed',
+  props: {
+    apiUrl: {
+      type: String,
+      required: true
+    }
+  },
+  computed: {
+    ...mapState({
+      isLoading: state => state.feed.isLoading,
+      feed: state => state.feed.data,
+      error: state => state.feed.error
+    })
+  },
+  mounted () {
+    this.$store.dispatch(actionTypes.getFeed, { apiUrl: this.apiUrl })
+  }
+}
+</script>
