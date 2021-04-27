@@ -2,7 +2,7 @@
   <div>
     <Loading v-if="isLoading" />
     <ErrorMessage v-if="error" />
-    
+
     <div v-if="feed">
       <div
         v-for="(article, index) in feed.articles"
@@ -102,6 +102,10 @@ export default {
   },
   watch: {
     currentPage () {
+      this.fetchFeed()
+    },
+    apiUrl (newValue) {
+      this.apiUrl = newValue
       this.fetchFeed()
     }
   },
