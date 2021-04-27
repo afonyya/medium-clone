@@ -4,6 +4,7 @@
     <div class="container page">
       <div class="row">
         <div class="col-md-9">
+          <FeedToggler />
           <Feed :api-url="apiUrl" />
         </div>
         <div class="col-md-3">
@@ -18,13 +19,15 @@
 import Feed from '@/components/Feed.vue'
 import PopularTags from '@/components/PopularTags.vue'
 import Banner from '@/components/Banner.vue'
+import FeedToggler from '@/components/FeedToggler.vue'
 
 export default {
   name: 'GlobalFeed',
   components: {
     Feed,
     PopularTags,
-    Banner
+    Banner,
+    FeedToggler
   },
   data () {
     return {

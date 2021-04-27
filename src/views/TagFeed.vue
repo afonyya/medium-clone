@@ -4,6 +4,7 @@
     <div class="container page">
       <div class="row">
         <div class="col-md-9">
+          <FeedToggler :tag-name="tagName" />
           <Feed :api-url="apiUrl" />
         </div>
         <div class="col-md-3">
@@ -18,19 +19,22 @@
 import Feed from '@/components/Feed.vue'
 import PopularTags from '@/components/PopularTags.vue'
 import Banner from '@/components/Banner.vue'
+import FeedToggler from '@/components/FeedToggler.vue'
 
 export default {
   name: 'TagFeed',
   components: {
     Feed,
     PopularTags,
-    Banner
+    Banner,
+    FeedToggler
   },
   computed: {
+    tagName () {
+      return this.$route.params.slug
+    },
     apiUrl () {
-      const tagName = this.$route.params.slug
-      console.log(tagName);
-      return `/articles?tag=${tagName}`
+      return `/articles?tag=${this.tagName}`
     }
   }
 }
