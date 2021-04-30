@@ -44,7 +44,7 @@
           <h3>{{ article.title }}</h3>
           <p>{{ article.description }}</p>
           <span>Reed more...</span>
-          TAG LIST
+          <TagList :tags="article.tagList" />
         </router-link>
       </div>
       <Pagination
@@ -60,18 +60,20 @@
 <script>
 import { mapState } from 'vuex'
 import { actionTypes } from '@/store/modules/feed'
-import Pagination from '@/components/Pagination.vue'
 import { limit } from '@/helpers/vars'
 import { stringify, parseUrl } from 'query-string'
+import Pagination from '@/components/Pagination.vue'
 import Loading from '@/components/Loading.vue'
 import ErrorMessage from '@/components/ErrorMessage.vue'
+import TagList from '@/components/TagList.vue'
 
 export default {
   name: 'Feed',
   components: {
     Pagination,
     Loading,
-    ErrorMessage
+    ErrorMessage,
+    TagList
   },
   props: {
     apiUrl: {
